@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarayut Sodakumsaen - Developer Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0e27;
+            --bg-secondary: #1a1f3a;
+            --bg-tertiary: #252d4a;
+            --neon-green: #00ff88;
+            --neon-green-dark: #00d966;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b8d4;
+            --glass-bg: rgba(26, 31, 58, 0.6);
+            --glass-border: rgba(0, 255, 136, 0.1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Prompt', sans-serif;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, #1a1a3e 50%, var(--bg-primary) 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Background Gradient */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 20% 50%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(0, 150, 255, 0.05) 0%, transparent 50%);
+            animation: gradientShift 15s ease infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(50px, -50px); }
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            position: sticky;
+            top: 2rem;
+            height: fit-content;
+        }
+
+        .profile-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .profile-card:hover {
+            border-color: rgba(0, 255, 136, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 255, 136, 0.1);
+        }
+
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--neon-green) 0%, var(--neon-green-dark) 100%);
+            padding: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .profile-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--neon-green) 0%, var(--text-primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .profile-title {
+            font-size: 1rem;
+            color: var(--neon-green);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .profile-bio {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .contact-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--neon-green);
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-link:hover {
+            background: var(--neon-green);
+            color: var(--bg-primary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 255, 136, 0.3);
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            background: rgba(0, 255, 136, 0.05);
+            border-radius: 10px;
+            font-size: 0.85rem;
+        }
+
+        .info-item span:first-child {
+            font-size: 1.3rem;
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(0, 255, 136, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 255, 136, 0.1);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--neon-green);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        /* ===== RESUME SECTION ===== */
+        .resume-greeting {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .typing-text {
+            font-size: 1.2rem;
+            color: var(--neon-green);
+            font-weight: 500;
+            min-height: 1.8rem;
+            line-height: 1.8;
+        }
+
+        .typing-cursor {
+            animation: blink 0.7s infinite;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+
+        .interests-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .interest-item {
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 10px;
+            padding: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .interest-item:hover {
+            background: rgba(0, 255, 136, 0.15);
+            transform: translateX(5px);
+            border-color: var(--neon-green);
+        }
+
+        .interest-item span:first-child {
+            font-size: 1.5rem;
+            margin-right: 0.5rem;
+        }
+
+        /* ===== PROJECTS SECTION ===== */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .project-card {
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            background: rgba(0, 255, 136, 0.1);
+            border-color: var(--neon-green);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 255, 136, 0.15);
+        }
+
+        .project-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .project-description {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            flex-grow: 1;
+            line-height: 1.6;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-tag {
+            background: rgba(0, 255, 136, 0.2);
+            color: var(--neon-green);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1rem;
+            background: linear-gradient(135deg, var(--neon-green) 0%, var(--neon-green-dark) 100%);
+            color: var(--bg-primary);
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            width: fit-content;
+        }
+
+        .project-link:hover {
+            transform: translateX(3px);
+            box-shadow: 0 8px 20px rgba(0, 255, 136, 0.3);
+        }
+
+        /* ===== CONTRIBUTION GRAPH ===== */
+        .contribution-section {
+            margin-top: 1.5rem;
+        }
+
+        .contribution-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .contribution-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(18px, 1fr));
+            gap: 3px;
+            margin-bottom: 1rem;
+        }
+
+        .contribution-cell {
+            width: 18px;
+            height: 18px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+        }
+
+        .contribution-cell:hover {
+            transform: scale(1.2);
+        }
+
+        .contribution-cell.level-0 {
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        .contribution-cell.level-1 {
+            background: rgba(0, 255, 136, 0.25);
+        }
+
+        .contribution-cell.level-2 {
+            background: rgba(0, 255, 136, 0.4);
+        }
+
+        .contribution-cell.level-3 {
+            background: rgba(0, 255, 136, 0.6);
+        }
+
+        .contribution-cell.level-4 {
+            background: var(--neon-green);
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.4);
+        }
+
+        .contribution-cell:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-secondary);
+            border: 1px solid var(--glass-border);
+            padding: 0.4rem 0.8rem;
+            border-radius: 5px;
+            white-space: nowrap;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+            z-index: 10;
+        }
+
+        /* ===== BUTTON STYLES ===== */
+        .btn-primary {
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(135deg, var(--neon-green) 0%, var(--neon-green-dark) 100%);
+            color: var(--bg-primary);
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Prompt', sans-serif;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 255, 136, 0.3);
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 1.5rem;
+            }
+
+            .sidebar {
+                position: static;
+                order: -1;
+            }
+
+            .profile-card {
+                display: grid;
+                grid-template-columns: 150px 1fr;
+                text-align: left;
+                gap: 2rem;
+                align-items: center;
+            }
+
+            .profile-image {
+                margin: 0;
+            }
+
+            .profile-info {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .contact-links {
+                justify-content: flex-start;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+
+            .profile-card {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding: 1.5rem;
+            }
+
+            .profile-image {
+                margin: 0 auto 1rem;
+            }
+
+            .contact-links {
+                justify-content: center;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+
+            .resume-greeting {
+                font-size: 1.5rem;
+            }
+
+            .typing-text {
+                font-size: 1rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contribution-grid {
+                grid-template-columns: repeat(auto-fill, minmax(15px, 1fr));
+            }
+
+            .contribution-cell {
+                width: 15px;
+                height: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0.75rem;
+                gap: 1rem;
+            }
+
+            .profile-card {
+                padding: 1rem;
+            }
+
+            .card {
+                padding: 1rem;
+                border-radius: 15px;
+            }
+
+            .card-title {
+                font-size: 1.2rem;
+            }
+
+            .resume-greeting {
+                font-size: 1.3rem;
+            }
+
+            .typing-text {
+                font-size: 0.9rem;
+            }
+
+            .interests-list {
+                grid-template-columns: 1fr;
+            }
+
+            .info-item {
+                padding: 0.6rem;
+                gap: 0.5rem;
+            }
+        }
+
+        /* Scroll Bar Styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--neon-green);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--neon-green-dark);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="profile-card">
+                <div class="profile-image">
+                    <img src="aa75911e-8a5c-43e2-ad64-7b9f887797fd.jpg" alt="Sarayut Sodakumsaen">
+                </div>
+                <div class="profile-info">
+                    <h1 class="profile-name">Sarayut Sodakumsaen</h1>
+                    <p class="profile-title">นักศึกษา | Developer in Progress</p>
+                    <p class="profile-bio">ผู้เรียนรู้อย่างเพียรในสาขาเว็บพัฒนา พร้อมสร้างผลงานที่มีความหมาย</p>
+                    
+                    <div class="contact-links">
+                        <a href="https://github.com" target="_blank" class="contact-link" title="GitHub">
+                            <span>🐙</span>
+                        </a>
+                        <a href="mailto:your.email@example.com" class="contact-link" title="Email">
+                            <span>✉️</span>
+                        </a>
+                        <a href="https://linkedin.com" target="_blank" class="contact-link" title="LinkedIn">
+                            <span>💼</span>
+                        </a>
+                        <a href="#" class="contact-link" title="Location">
+                            <span>📍</span>
+                        </a>
+                    </div>
+
+                    <div class="info-item">
+                        <span>⚡</span>
+                        <div>
+                            <strong style="color: var(--neon-green);">Skills</strong><br>
+                            HTML, CSS, JavaScript, React
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <span>🎓</span>
+                        <div>
+                            <strong style="color: var(--neon-green);">Learning</strong><br>
+                            Web Development, UI/UX
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <!-- Digital Resume Section -->
+            <section class="card">
+                <h2 class="resume-greeting">
+                    สวัสดี! 👋
+                </h2>
+                <p class="typing-text">
+                    <span id="typing-output"></span><span class="typing-cursor">|</span>
+                </p>
+                
+                <div class="interests-list">
+                    <div class="interest-item">
+                        <span>💻</span>
+                        <strong>Web Development</strong>
+                        <p style="font-size: 0.85rem; margin-top: 0.3rem; color: var(--text-secondary);">การสร้างเว็บไซต์สมัยใหม่</p>
+                    </div>
+                    <div class="interest-item">
+                        <span>🎨</span>
+                        <strong>UI/UX Design</strong>
+                        <p style="font-size: 0.85rem; margin-top: 0.3rem; color: var(--text-secondary);">ออกแบบอินเทอร์เฟสที่สวยงาม</p>
+                    </div>
+                    <div class="interest-item">
+                        <span>📚</span>
+                        <strong>Learning</strong>
+                        <p style="font-size: 0.85rem; margin-top: 0.3rem; color: var(--text-secondary);">เรียนรู้เทคโนโลยีใหม่ๆ</p>
+                    </div>
+                    <div class="interest-item">
+                        <span>🚀</span>
+                        <strong>Innovation</strong>
+                        <p style="font-size: 0.85rem; margin-top: 0.3rem; color: var(--text-secondary);">สร้างสิ่งใหม่ที่น่าสนใจ</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section class="card">
+                <h2 class="card-title">
+                    <span>📌</span>
+                    Featured Projects
+                </h2>
+                
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-icon">🎨</div>
+                        <h3 class="project-title">Portfolio Website</h3>
+                        <p class="project-description">เว็บไซต์โปรแกรมเมอร์ที่ออกแบบด้วย Glassmorphism และโทนสีแบบ Dark Mode ที่ทันสมัย</p>
+                        <div class="project-tags">
+                            <span class="project-tag">HTML</span>
+                            <span class="project-tag">CSS</span>
+                            <span class="project-tag">JavaScript</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            ดูโปรเจกต์ →
+                        </a>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-icon">🛒</div>
+                        <h3 class="project-title">E-Commerce Platform</h3>
+                        <p class="project-description">แพลตฟอร์มการขายสินค้าออนไลน์ที่มีฟีเจอร์การจัดการสินค้าและระบบชำระเงิน</p>
+                        <div class="project-tags">
+                            <span class="project-tag">React</span>
+                            <span class="project-tag">Node.js</span>
+                            <span class="project-tag">MongoDB</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            ดูโปรเจกต์ →
+                        </a>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-icon">📱</div>
+                        <h3 class="project-title">Task Management App</h3>
+                        <p class="project-description">แอปพลิเคชันจัดการงานที่สามารถทำงานได้ทั้งบนเดสก์ทอปและมือถือ</p>
+                        <div class="project-tags">
+                            <span class="project-tag">React Native</span>
+                            <span class="project-tag">Firebase</span>
+                            <span class="project-tag">UI Design</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            ดูโปรเจกต์ →
+                        </a>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-icon">🎯</div>
+                        <h3 class="project-title">Analytics Dashboard</h3>
+                        <p class="project-description">แดชบอร์ดวิเคราะห์ข้อมูลแบบเรียลไทม์พร้อมกราฟและสถิติต่างๆ</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Vue.js</span>
+                            <span class="project-tag">Chart.js</span>
+                            <span class="project-tag">API</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            ดูโปรเจกต์ →
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contribution Graph Section -->
+            <section class="card">
+                <h2 class="card-title">
+                    <span>📊</span>
+                    Activity Graph
+                </h2>
+                <span class="contribution-label">Contributions in the last 52 weeks</span>
+                <div class="contribution-grid" id="contribution-grid"></div>
+                <div style="margin-top: 1rem; text-align: center;">
+                    <span class="contribution-label">
+                        Less <span style="margin: 0 0.5rem;">
+                            <span class="contribution-cell" style="display: inline-block; background: rgba(0, 255, 136, 0.1);"></span>
+                            <span class="contribution-cell" style="display: inline-block; background: rgba(0, 255, 136, 0.25);"></span>
+                            <span class="contribution-cell" style="display: inline-block; background: rgba(0, 255, 136, 0.4);"></span>
+                            <span class="contribution-cell" style="display: inline-block; background: rgba(0, 255, 136, 0.6);"></span>
+                            <span class="contribution-cell" style="display: inline-block; background: #00ff88;"></span>
+                        </span> More
+                    </span>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Typing Effect
+        const typingTexts = [
+            'ผมชอบเขียนโค้ดและเรียนรู้เทคโนโลยีใหม่ๆ',
+            'ผมต้องการสร้างผลงานที่มีประโยชน์ต่อสังคม',
+            'ผมหลงใหลในการออกแบบเว็บที่สวยงาม',
+            'ผมมีความสงสัยและชอบแก้ปัญหา'
+        ];
+
+        let textIndex = 0;
+        let charIndex = 0;
+        const typingOutput = document.getElementById('typing-output');
+        const typingSpeed = 50;
+        const erasingSpeed = 30;
+        const delayBetween = 2000;
+
+        function typeText() {
+            if (charIndex < typingTexts[textIndex].length) {
+                typingOutput.textContent += typingTexts[textIndex].charAt(charIndex);
+                charIndex++;
+                setTimeout(typeText, typingSpeed);
+            } else {
+                setTimeout(eraseText, delayBetween);
+            }
+        }
+
+        function eraseText() {
+            if (charIndex > 0) {
+                typingOutput.textContent = typingTexts[textIndex].substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(eraseText, erasingSpeed);
+            } else {
+                textIndex = (textIndex + 1) % typingTexts.length;
+                setTimeout(typeText, 500);
+            }
+        }
+
+        // Start typing animation
+        typeText();
+
+        // Contribution Graph Generator
+        function generateContributionGraph() {
+            const grid = document.getElementById('contribution-grid');
+            const today = new Date();
+            const startDate = new Date(today.getFullYear(), today.getMonth() - 12, today.getDate());
+            
+            // Create cells for 52 weeks
+            for (let i = 0; i < 364; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'contribution-cell';
+                
+                // Random activity level
+                const level = Math.floor(Math.random() * 5);
+                cell.classList.add(level-${level});
+                
+                // Calculate date
+                const cellDate = new Date(startDate);
+                cellDate.setDate(cellDate.getDate() + i);
+                const dateStr = cellDate.toLocaleDateString('th-TH', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+                
+                const contributions = level * Math.floor(Math.random() * 10);
+                cell.setAttribute('data-tooltip', ${contributions} contributions on ${dateStr});
+                
+                grid.appendChild(cell);
+            }
+        }
+
+        // Initialize contribution graph on load
+        window.addEventListener('load', generateContributionGraph);
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Add interest item click animation
+        document.querySelectorAll('.interest-item').forEach(item => {
+            item.addEventListener('click', function() {
+                this.style.animation = 'pulse 0.5s ease';
+                setTimeout(() => {
+                    this.style.animation = '';
+                }, 500);
+            });
+        });
+
+        // Add pulse animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
